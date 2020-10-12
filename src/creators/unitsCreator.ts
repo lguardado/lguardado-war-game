@@ -1,24 +1,23 @@
 import { UnitTypesEnum } from "../constants/armyConstants";
-import { Archer, Knight, Soldier } from "../models/units";
+import { Archer, Knight, MilitaryUnit, Soldier } from "../models/units";
 
-export function unitsCreator(type: string, quantity: number): Array<any> {
-  let arr = new Array<any>(quantity);
-  switch (type) {
-    case UnitTypesEnum.archer:
-      for (let i = 0; i < arr.length; i++) {
-        arr[i] = new Archer();
-      }
-      break;
-    case UnitTypesEnum.soldier:
-      for (let i = 0; i < arr.length; i++) {
-        arr[i] = new Soldier();
-      }
-      break;
-    case UnitTypesEnum.knight:
-      for (let i = 0; i < arr.length; i++) {
-        arr[i] = new Knight();
-      }
-      break;
+export function unitsCreator(type: string, quantity: number): Array<MilitaryUnit> {
+  let arr = new Array<MilitaryUnit>(quantity);
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = unitCreator(type);
   }
   return arr;
+}
+
+export function unitCreator(type: string): MilitaryUnit {
+  switch (type) {
+    case UnitTypesEnum.archer:
+      return new Archer();
+    case UnitTypesEnum.soldier:
+      return new Soldier();
+    case UnitTypesEnum.knight:
+      return new Knight();
+    default:
+      break;
+  }
 }
