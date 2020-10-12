@@ -2,7 +2,7 @@ import { Battle } from "../arena";
 import { UnitTypesEnum } from "../constants/armyConstants";
 import { ByzantineValues, ChineseValues, EnglishValues, INITIAL_GOLD } from "../constants/civilizationConstants";
 import { unitsCreator } from "../creators/unitsCreator";
-import { Archer, Knight } from "./units";
+import { Archer, Knight, MilitaryUnit } from "./units";
 import { CivilizationTypesEnum } from '../constants/civilizationConstants';
 
 export interface IArmy {
@@ -21,6 +21,8 @@ export interface IArmy {
   upgradeUnit: (type: string) => void;
   attack: (to: IArmy) => void;
   removeLastUnit: () => void;
+  getCurrentGold: () => number;
+  getUnits: () => Array<MilitaryUnit>;
 }
 
 export class Army implements IArmy {
@@ -48,6 +50,12 @@ export class Army implements IArmy {
       (total, current) => total + current.getPoints(),
       0)
     return points;
+  };
+  getCurrentGold() {
+    return this.gold;
+  };
+  getUnits() {
+    return this.units;
   };
   // Asumiendo acá que las unidades se entrenan de a una y
   // no importa cual unidad entrenar,
@@ -98,8 +106,7 @@ export class Army implements IArmy {
     this.units.splice(index, 1, newType);
     if (created) {
       console.log(
-        `${
-          this.type
+        `${this.type
         } ${oldUnit.getType()} upgraded to ${newType.getType()}!`
       );
     }

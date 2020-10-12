@@ -55,14 +55,14 @@ function rewardArmy(army: Army) {
   }
   army.receiveGold(GOLD_WINING_PRICE);
   console.log(`${army.getCivilization()} gets a ${GOLD_WINING_PRICE} gold reward!, 
-  now they have ${army.gold} gold`);
+  now they have ${army.getCurrentGold()} gold`);
 }
 
 function punishArmy(army: Army) {
   if (!army) {
     return;
   }
-  army.units.sort(sortTroopsMethod);
+  army.getUnits().sort(sortTroopsMethod);
   army.removeLastUnit();
   army.removeLastUnit();
   console.warn(
