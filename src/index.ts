@@ -4,9 +4,9 @@ import { civilizationCreator } from "./creators/civilizationCreator";
 import { CivilizationTypesEnum } from "./constants/civilizationConstants";
 
 const english = civilizationCreator(CivilizationTypesEnum.english);
-english.addArmy(armyCreator(english.type));
+english.addArmy(armyCreator(english.getType()));
 const byzantine = civilizationCreator(CivilizationTypesEnum.byzantine);
-byzantine.addArmy(armyCreator(byzantine.type));
+byzantine.addArmy(armyCreator(byzantine.getType()));
 const englishFirstInfantry = english.armies[0];
 const byzantineFirstInfantry = byzantine.armies[0];
 

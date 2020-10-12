@@ -14,6 +14,9 @@ export class Civilization {
   addArmy(army: Army) {
     this.armies.push(army);
   }
+  getType() {
+    return this.type;
+  }
 }
 
 export class ChineseCivilization extends Civilization {
