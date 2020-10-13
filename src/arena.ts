@@ -1,4 +1,4 @@
-import { Army } from "./models/army";
+import { AdvancedArmy, Army } from "./models/army";
 import { MilitaryUnit } from "./models/units";
 
 const GOLD_WINING_PRICE = 100;
@@ -6,7 +6,7 @@ const GOLD_WINING_PRICE = 100;
 const sortTroopsMethod = (a: MilitaryUnit, b: MilitaryUnit) =>
   a.getPoints() - b.getPoints();
 
-export function Battle(attackerArmy: Army, defenderArmy: Army) {
+export function Battle(attackerArmy: AdvancedArmy, defenderArmy: AdvancedArmy) {
   const attackerArmyPoints = attackerArmy.getPoints();
   const defenderArmyPoints = defenderArmy.getPoints();
 
@@ -28,7 +28,7 @@ export function Battle(attackerArmy: Army, defenderArmy: Army) {
   return proccessBattleResults(winner, looser);
 }
 
-function processDraw(attackerArmy: Army, defenderArmy: Army) {
+function processDraw(attackerArmy: AdvancedArmy, defenderArmy: AdvancedArmy) {
   attackerArmy.removeLastUnit();
   defenderArmy.removeLastUnit();
   const history = `${attackerArmy.getCivilization()} vs ${defenderArmy.getCivilization()} Draw! Both teams looses a random unit`;
@@ -37,7 +37,7 @@ function processDraw(attackerArmy: Army, defenderArmy: Army) {
   console.warn(history);
 }
 
-function proccessBattleResults(winner: Army, looser: Army) {
+function proccessBattleResults(winner: AdvancedArmy, looser: AdvancedArmy) {
   if (!winner || !looser) {
     return;
   }
@@ -49,7 +49,7 @@ function proccessBattleResults(winner: Army, looser: Army) {
   punishArmy(looser);
 }
 
-function rewardArmy(army: Army) {
+function rewardArmy(army: AdvancedArmy) {
   if (!army) {
     return;
   }
@@ -58,7 +58,7 @@ function rewardArmy(army: Army) {
   now they have ${army.getCurrentGold()} gold`);
 }
 
-function punishArmy(army: Army) {
+function punishArmy(army: AdvancedArmy) {
   if (!army) {
     return;
   }

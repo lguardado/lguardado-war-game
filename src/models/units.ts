@@ -5,17 +5,17 @@ export interface IUnit {
   addPoints: (points: number) => void;
 }
 
-export interface ITrainableUnit {
+export interface ITrainable {
   getTrainCost: () => number;
   train: () => string;
 }
 
-export interface IUpgradeableUnit {
+export interface IUpgradeable {
   upgradeCost: number;
   upgradeTo: string;
 }
 
-export class MilitaryUnit implements IUnit, ITrainableUnit {
+export class MilitaryUnit implements IUnit, ITrainable {
   protected type: string;
   protected points: number;
   protected level: number;
@@ -42,7 +42,7 @@ export class MilitaryUnit implements IUnit, ITrainableUnit {
   }
 }
 
-export class UpgradableMilitaryUnit extends MilitaryUnit implements IUpgradeableUnit {
+export class UpgradableMilitaryUnit extends MilitaryUnit implements IUpgradeable {
   upgradeCost: number;
   upgradeTo: string;
 }

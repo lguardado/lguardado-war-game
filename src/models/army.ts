@@ -7,17 +7,13 @@ import { CivilizationTypesEnum } from '../constants/civilizationConstants';
 
 export interface IArmy {
   type: string;
-  gold: number;
   units: any[];
   battlesHistory: string[];
   getPoints: () => number;
   getHistory: () => string[];
   getCivilization: () => string;
-  getCurrentGold: () => number;
   getUnits: () => Array<MilitaryUnit>;
   addBattleToHistory: (val: string) => void;
-  receiveGold: (amount: number) => void;
-  spendGold: (amount: number) => void;
   removeLastUnit: () => void; 
 }
 
@@ -27,19 +23,19 @@ interface IImprovable {
   upgradeUnit: (type: string) => void;
 }
 
+interface IPayable {
+  gold: number;
+  receiveGold: (amount: number) => void;
+  spendGold: (amount: number) => void;
+  getCurrentGold: () => number;
+}
+
 export class Army implements IArmy {
   type: string;
-  gold: number = INITIAL_GOLD;
   units: Array<any>;
   battlesHistory: Array<string> = [];
   addBattleToHistory(battle: string) {
     this.battlesHistory.push(battle);
-  };
-  receiveGold(gold: number) {
-    this.gold += gold;
-  };
-  spendGold(gold: number) {
-    this.gold -= gold;
   };
   getHistory() {
     return this.battlesHistory;
@@ -53,21 +49,25 @@ export class Army implements IArmy {
       0)
     return points;
   };
-  getCurrentGold() {
-    return this.gold;
-  };
   getUnits() {
     return this.units;
-  };
-  attack(to: Army) {
-    Battle(this, to);
   };
   removeLastUnit() {
     this.units.pop();
   }
 };
 
-export class AdvancedArmy extends Army implements IImprovable {
+export class AdvancedArmy extends Army implements IImprovable, IPayable {
+  gold: number = INITIAL_GOLD;
+  receiveGold(gold: number) {
+    this.gold += gold;
+  };
+  spendGold(gold: number) {
+    this.gold -= gold;
+  };
+  getCurrentGold() {
+    return this.gold;
+  };
    // Asumiendo acá que las unidades se entrenan de a una y
   // no importa cual unidad entrenar,
   // dado que por el momento no hay limite
@@ -120,6 +120,9 @@ export class AdvancedArmy extends Army implements IImprovable {
         } ${oldUnit.getType()} upgraded to ${newType.getType()}!`
       );
     }
+  };
+  attack(to: AdvancedArmy) {
+    Battle(this, to);
   };
 }
 
