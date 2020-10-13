@@ -10,22 +10,22 @@ byzantine.addArmy(advancedArmyCreator(byzantine.getType()));
 const englishFirstInfantry = english.armies[0];
 const byzantineFirstInfantry = byzantine.armies[0];
 
-// DESCOMENTAR PARA ENTRENAR UNIDADES
-byzantineFirstInfantry.trainUnit(UnitTypesEnum.knight);
-byzantineFirstInfantry.trainUnit(UnitTypesEnum.archer);
+// // DESCOMENTAR PARA ENTRENAR UNIDADES
+// byzantineFirstInfantry.trainUnit(UnitTypesEnum.knight);
+// byzantineFirstInfantry.trainUnit(UnitTypesEnum.archer);
 
-// DESCOMENTAR PARA TESTEAR BATALLA!
-englishFirstInfantry.attack(byzantine.armies[0]);
+// // DESCOMENTAR PARA TESTEAR BATALLA!
+// englishFirstInfantry.attack(byzantine.armies[0]);
 
-// DESCOMENTAR PARA TESTEAR EMPATE!
-englishFirstInfantry.attack(english.armies[0]);
+// // DESCOMENTAR PARA TESTEAR EMPATE!
+// englishFirstInfantry.attack(english.armies[0]);
 
-// DESCOMENTAR PARA TESTEAR HISTORIAL!
-console.log(englishFirstInfantry.getHistory());
+// // DESCOMENTAR PARA TESTEAR HISTORIAL!
+// console.log(englishFirstInfantry.getHistory());
 
-// DESCOMENTAR PARA TESTEAR UPGRADE
-englishFirstInfantry.upgradeUnit(UnitTypesEnum.archer);
-englishFirstInfantry.upgradeUnit(UnitTypesEnum.soldier);
+// // DESCOMENTAR PARA TESTEAR UPGRADE
+// englishFirstInfantry.upgradeUnit(UnitTypesEnum.archer);
+// englishFirstInfantry.upgradeUnit(UnitTypesEnum.soldier);
 
-// DESCOMENTAR PARA TESTEAR UPGRADE FALLIDO
-englishFirstInfantry.upgradeUnit(UnitTypesEnum.knight);
+// // DESCOMENTAR PARA TESTEAR UPGRADE FALLIDO
+// englishFirstInfantry.upgradeUnit(UnitTypesEnum.knight);
