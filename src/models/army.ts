@@ -13,16 +13,18 @@ export interface IArmy {
   getPoints: () => number;
   getHistory: () => string[];
   getCivilization: () => string;
+  getCurrentGold: () => number;
+  getUnits: () => Array<MilitaryUnit>;
   addBattleToHistory: (val: string) => void;
   receiveGold: (amount: number) => void;
   spendGold: (amount: number) => void;
+  removeLastUnit: () => void; 
+}
+
+interface IImprovable {
   // en un caso real se usaria un ID para entrenar/actualizar unidades
   trainUnit: (type: string) => void;
   upgradeUnit: (type: string) => void;
-  attack: (to: IArmy) => void;
-  removeLastUnit: () => void;
-  getCurrentGold: () => number;
-  getUnits: () => Array<MilitaryUnit>;
 }
 
 export class Army implements IArmy {
@@ -57,12 +59,20 @@ export class Army implements IArmy {
   getUnits() {
     return this.units;
   };
-  // Asumiendo acá que las unidades se entrenan de a una y
+  attack(to: Army) {
+    Battle(this, to);
+  };
+  removeLastUnit() {
+    this.units.pop();
+  }
+};
+
+export class AdvancedArmy extends Army implements IImprovable {
+   // Asumiendo acá que las unidades se entrenan de a una y
   // no importa cual unidad entrenar,
   // dado que por el momento no hay limite
   // de "nivel" y para simplifiar las cosas.
   // es decir, se entrena la primer unidad encontrada del tipo elegido.
-
   trainUnit(type: string) {
     let unit = this.units.find((el) => el.getType() === type);
     if (unit) {
@@ -111,15 +121,9 @@ export class Army implements IArmy {
       );
     }
   };
-  attack(to: Army) {
-    Battle(this, to);
-  };
-  removeLastUnit() {
-    this.units.pop();
-  }
-};
+}
 
-export class ChineseArmy extends Army {
+export class ChineseArmy extends AdvancedArmy {
   type = CivilizationTypesEnum.chinese
   units = [
     ...unitsCreator(UnitTypesEnum.soldier, ChineseValues.soldiersQuantity),
@@ -128,7 +132,7 @@ export class ChineseArmy extends Army {
   ];
 }
 
-export class ByzantineArmy extends Army {
+export class ByzantineArmy extends AdvancedArmy {
   type = CivilizationTypesEnum.byzantine
   units = [
     ...unitsCreator(UnitTypesEnum.soldier, ByzantineValues.soldiersQuantity),
@@ -136,7 +140,7 @@ export class ByzantineArmy extends Army {
     ...unitsCreator(UnitTypesEnum.knight, ByzantineValues.knightsQuantity)
   ];
 }
-export class EnglishArmy extends Army {
+export class EnglishArmy extends AdvancedArmy {
   type = CivilizationTypesEnum.english
   units = [
     ...unitsCreator(UnitTypesEnum.soldier, EnglishValues.soldiersQuantity),

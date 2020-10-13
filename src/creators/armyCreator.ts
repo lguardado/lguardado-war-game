@@ -1,7 +1,7 @@
-import { ByzantineArmy, ChineseArmy, EnglishArmy } from "../models/army";
+import { AdvancedArmy, ByzantineArmy, ChineseArmy, EnglishArmy } from "../models/army";
 import { CivilizationTypesEnum } from "../constants/civilizationConstants";
 
-export function armyCreator(type: string) {
+export function advancedArmyCreator(type: string): AdvancedArmy {
   switch (type) {
     case CivilizationTypesEnum.chinese:
       return new ChineseArmy();

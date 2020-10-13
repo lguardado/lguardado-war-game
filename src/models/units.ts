@@ -1,13 +1,21 @@
 import * as armyConstants from "../constants/armyConstants";
 
 export interface IUnit {
-  getTrainCost: () => number;
   getType: () => string;
-  train: () => string;
   addPoints: (points: number) => void;
 }
 
-export class MilitaryUnit implements IUnit {
+export interface ITrainableUnit {
+  getTrainCost: () => number;
+  train: () => string;
+}
+
+export interface IUpgradeableUnit {
+  upgradeCost: number;
+  upgradeTo: string;
+}
+
+export class MilitaryUnit implements IUnit, ITrainableUnit {
   protected type: string;
   protected points: number;
   protected level: number;
@@ -34,7 +42,12 @@ export class MilitaryUnit implements IUnit {
   }
 }
 
-export class Soldier extends MilitaryUnit {
+export class UpgradableMilitaryUnit extends MilitaryUnit implements IUpgradeableUnit {
+  upgradeCost: number;
+  upgradeTo: string;
+}
+
+export class Soldier extends UpgradableMilitaryUnit {
   type = armyConstants.UnitTypesEnum.soldier;
   level = 0;
   points = armyConstants.soldierValues.points;
@@ -44,7 +57,7 @@ export class Soldier extends MilitaryUnit {
   upgradeTo = armyConstants.soldierValues.upgradeTo;
 }
 
-export class Archer extends MilitaryUnit {
+export class Archer extends UpgradableMilitaryUnit {
   type = armyConstants.UnitTypesEnum.archer;
   level = 0;
   points = armyConstants.archerValues.points;

@@ -1,5 +1,5 @@
 import * as civilizationConstants from "../constants/civilizationConstants";
-import { Army } from "./army";
+import { AdvancedArmy } from "./army";
 
 export interface ICivilizationValues {
   soldiersQuantity: number;
@@ -10,8 +10,8 @@ export interface ICivilizationValues {
 export class Civilization {
   type: string;
   armyComposition: ICivilizationValues;
-  armies: Array<Army> = [];
-  addArmy(army: Army) {
+  armies: Array<AdvancedArmy> = [];
+  addArmy(army: AdvancedArmy) {
     this.armies.push(army);
   }
   getType() {
